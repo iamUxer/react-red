@@ -7,20 +7,18 @@ import Groceries from './components/contents/Groceries.js';
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Header />
       <div class="contents">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/items" element={<Items />} />
-            <Route path="/groceries" element={<Groceries />} />
-            <Route path="*" element={<Navigate replace to="/home" />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/items" element={<Items />} />
+          <Route path="/groceries" element={<Groceries />} />
+          <Route path="*" element={<Navigate replace to="/home" />} />
+        </Routes>
       </div>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 
