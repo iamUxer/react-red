@@ -1,23 +1,36 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header>
       <div class="logo">RED</div>
       <div>
-        <a href="./index.html" id="menu-a-home" class="active">
+        <NavLink
+          to="home"
+          id="menu-a-home"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
           <span class="material-icons-outlined">home</span>
-        </a>
+        </NavLink>
       </div>
       <div>
-        <a href="./items.html" id="menu-a-items">
+        <NavLink
+          to="items"
+          id="menu-a-items"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
           <span class="material-icons-outlined">shopping_cart</span>
-        </a>
+        </NavLink>
       </div>
       <div class="menu-groceries">
-        <a href="./groceries.html" id="menu-a-groceries">
+        <NavLink
+          to="groceries"
+          id="menu-a-groceries"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
           <span class="material-icons">kitchen</span>
-        </a>
+        </NavLink>
         <div>
           <span id="menu-groceries-counter">1</span>
         </div>
