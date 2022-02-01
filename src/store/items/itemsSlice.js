@@ -28,17 +28,22 @@ export const itemsSlice = createSlice({
     //     expire: 2022-02-21,
     //   });
     // },
-    // itemsSet: (state, action) => {
-    //   state.items = action.payload;
-    // },
-    // itemsUpdate: (state, action) => {
-    //   state.items[action.payload.index] = action.payload.item;
-    // },
-    // itemsDelete(state, action) {
-    //   state.items.splice(action.payload, 1);
-    // },
   },
 });
+// itemsSet: (state, action) => {
+//   state.items = action.payload;
+// },
+// itemsUpdate: (state, action) => {
+//   state.items[action.payload.index] = action.payload.item;
+// },
+// itemsDelete(state, action) {
+//   state.items.splice(action.payload, 1);
+// },
+
+// Axios
+// itemsRead: (state, action) => {
+//   state.items = action.payload;
+// },
 
 export const stateItems = (state) => state.items;
 export const actionsItems = itemsSlice.actions;
