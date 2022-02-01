@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { stateItems, actionsItems } from '../../store/items/itemsSlice';
+import { stateItems, actionsItems } from 'store/items/itemsSlice';
 
 const Items = () => {
   const dispatch = useDispatch();

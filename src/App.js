@@ -1,9 +1,9 @@
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './components/contents/Home.js';
-import Items from './components/contents/Items.js';
-import Groceries from './components/contents/Groceries.js';
+import Home from 'components/contents/Home.js';
+import Items from 'components/contents/Items.js';
+import Groceries from 'components/contents/Groceries.js';
 
 function App() {
   return (
