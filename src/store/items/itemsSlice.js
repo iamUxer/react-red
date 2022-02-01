@@ -17,6 +17,26 @@ export const itemsSlice = createSlice({
     itemsCreate: (state, action) => {
       state.items.push(action.payload);
     },
+    // itemsRead: (state) => {
+    //   state.items.push({
+    //     name: 'Apple',
+    //     enter: 2022-02-07,
+    //     expire: 2022-02-21,
+    //   }, {
+    //     name: 'Mango',
+    //     enter: 2022-02-07,
+    //     expire: 2022-02-21,
+    //   });
+    // },
+    // itemsSet: (state, action) => {
+    //   state.items = action.payload;
+    // },
+    // itemsUpdate: (state, action) => {
+    //   state.items[action.payload.index] = action.payload.item;
+    // },
+    // itemsDelete(state, action) {
+    //   state.items.splice(action.payload, 1);
+    // },
   },
 });
 
