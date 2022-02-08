@@ -31,22 +31,22 @@ export const itemsSlice = createSlice({
         },
         {
           name: 'Mango',
-          enter: '2022 - 02 - 07',
-          expire: '2022 - 02 - 21',
+          enter: '2022-02-07',
+          expire: '2022-02-21',
         }
       );
     },
     itemsDelete(state, action) {
       state.items.splice(action.payload, 1);
     },
+    // itemsSet: (state, action) => {
+    //   state.items = action.payload;
+    // },
+    itemsUpdate: (state, action) => {
+      state.items[action.payload.index] = action.payload.item;
+    },
   },
 });
-// itemsSet: (state, action) => {
-//   state.items = action.payload;
-// },
-// itemsUpdate: (state, action) => {
-//   state.items[action.payload.index] = action.payload.item;
-// },
 
 // Axios
 // itemsRead: (state, action) => {

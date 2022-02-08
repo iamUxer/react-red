@@ -81,7 +81,15 @@ const Items = () => {
                 <td>{item.name}</td>
                 <td>{item.enter}</td>
                 <td className="td-expire">
-                  <input type="date" value="2022-02-21" />
+                  <input
+                    type="date"
+                    value={item.expire}
+                    onChange={(event) => {
+                      item.expire = event.target.value;
+                      // dispatch(actionsItems.itemsSet(items));
+                      dispatch(actionsItems.itemsUpdate({ index, item }));
+                    }}
+                  />
                 </td>
                 <td className="td-delete">
                   <button
@@ -94,39 +102,6 @@ const Items = () => {
               </tr>
             ))}
           </tbody>
-
-          {/* <td>
-                <input
-                type="text"
-                placeholder="Name"
-                value={item.name}
-                onChange={(event) => {
-                    item.name = event.target.value;
-                    dispatch(actionsItems.itemsSet(items));
-                }}
-                />
-            </td> */}
-          {/* <td>
-                <input
-                type="text"
-                placeholder="Enter"
-                value={item.enter}
-                onChange={(event) => {
-                    item.enter = event.target.value;
-                    dispatch(actionsItems.itemsSet(items));
-                }}
-                />
-            </td> */}
-          {/* <td className="td-expire">
-                <input
-                type="date"
-                value={item.expire}
-                onChange={(event) => {
-                    item.expire = event.target.value;
-                    dispatch(actionsItems.itemsSet(items));
-                }}
-                />
-            </td> */}
         </table>
       </div>
     </article>
