@@ -36,6 +36,9 @@ export const itemsSlice = createSlice({
         }
       );
     },
+    itemsDelete(state, action) {
+      state.items.splice(action.payload, 1);
+    },
   },
 });
 // itemsSet: (state, action) => {
@@ -43,9 +46,6 @@ export const itemsSlice = createSlice({
 // },
 // itemsUpdate: (state, action) => {
 //   state.items[action.payload.index] = action.payload.item;
-// },
-// itemsDelete(state, action) {
-//   state.items.splice(action.payload, 1);
 // },
 
 // Axios

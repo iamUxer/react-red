@@ -84,7 +84,10 @@ const Items = () => {
                   <input type="date" value="2022-02-21" />
                 </td>
                 <td className="td-delete">
-                  <button className="button-delete">
+                  <button
+                    className="button-delete"
+                    onClick={() => dispatch(actionsItems.itemsDelete(index))}
+                  >
                     <span className="material-icons">delete</span>
                   </button>
                 </td>
@@ -123,16 +126,6 @@ const Items = () => {
                     dispatch(actionsItems.itemsSet(items));
                 }}
                 />
-            </td> */}
-          {/* <td className="td-delete">
-                <button
-                className="button-delete"
-                onClick={() =>
-                    dispatch(actionsItems.itemsDelete(index))
-                }
-                >
-                <span className="material-icons">delete</span>
-                </button>
             </td> */}
         </table>
       </div>
