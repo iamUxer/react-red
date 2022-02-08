@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { stateItems, actionsItems } from 'store/items/itemsSlice';
-// import actionsItems from 'store/items/itemsActions.js';
+import { stateItems } from 'store/items/itemsSlice';
+import actionsItems from 'store/items/itemsActions.js';
 
 const Items = () => {
   const dispatch = useDispatch();
