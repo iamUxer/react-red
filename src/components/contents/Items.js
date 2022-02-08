@@ -8,16 +8,18 @@ const Items = () => {
   const item = { ...useSelector(stateItems).item };
   console.log(item);
 
-  // const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
+  const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
   // const items = Object.assign([], useSelector(stateItems).items);
-  // useEffect(() => {
-  //   dispatch(actionsItems.itemSet({
-  //     name: '',
-  //     enter: '',
-  //     expire: '',
-  //   }));
-  //   dispatch(actionsItems.itemsRead());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(
+      actionsItems.itemSet({
+        name: '',
+        enter: '',
+        expire: '',
+      })
+    );
+    dispatch(actionsItems.itemsRead());
+  }, [dispatch]);
   return (
     <article>
       <form
@@ -71,68 +73,6 @@ const Items = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>사과</td>
-              <td>2021-01-01</td>
-              <td className="td-expire">
-                <input type="date" value="2021-02-02" />
-              </td>
-              <td className="td-delete">
-                <button className="button-delete" onClick={null}>
-                  <span className="material-icons">delete</span>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>바나나</td>
-              <td>2021-01-01</td>
-              <td className="td-expire">
-                <input type="date" value="2021-02-02" />
-              </td>
-              <td className="td-delete">
-                <button className="button-delete" onClick={null}>
-                  <span className="material-icons">delete</span>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>딸기</td>
-              <td>2021-01-01</td>
-              <td className="td-expire">
-                <input type="date" value="2021-02-02" />
-              </td>
-              <td className="td-delete">
-                <button className="button-delete" onClick={null}>
-                  <span className="material-icons">delete</span>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>키위</td>
-              <td>2021-01-01</td>
-              <td className="td-expire">
-                <input type="date" value="2021-02-02" />
-              </td>
-              <td className="td-delete">
-                <button className="button-delete" onClick={null}>
-                  <span className="material-icons">delete</span>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-          {/* <tbody>
             {items.map((item, index) => (
               <tr key={index}>
                 <td>
@@ -150,7 +90,7 @@ const Items = () => {
                 </td>
               </tr>
             ))}
-          </tbody> */}
+          </tbody>
 
           {/* <td>
                 <input
