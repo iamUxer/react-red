@@ -22,19 +22,8 @@ export const itemsSlice = createSlice({
         expire: moment().add(2, 'weeks').format('YYYY-MM-DD'),
       });
     },
-    itemsRead: (state) => {
-      state.items.push(
-        {
-          name: 'Apple',
-          enter: '2022-02-07',
-          expire: '2022-02-21',
-        },
-        {
-          name: 'Mango',
-          enter: '2022-02-07',
-          expire: '2022-02-21',
-        }
-      );
+    itemsRead: (state, action) => {
+      state.items = action.payload;
     },
     itemsDelete(state, action) {
       state.items.splice(action.payload, 1);

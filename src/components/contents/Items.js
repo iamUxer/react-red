@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { stateItems, actionsItems } from 'store/items/itemsSlice';
-// import actionsItems from 'store/items/itemsActions.js';
+import { stateItems } from 'store/items/itemsSlice';
+import actionsItems from 'store/items/itemsActions.js';
 
 const Items = () => {
   const dispatch = useDispatch();
@@ -9,6 +9,7 @@ const Items = () => {
   console.log(item);
 
   const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
+  console.log(items);
   // const items = Object.assign([], useSelector(stateItems).items);
   useEffect(() => {
     dispatch(
@@ -87,14 +88,21 @@ const Items = () => {
                     onChange={(event) => {
                       item.expire = event.target.value;
                       // dispatch(actionsItems.itemsSet(items));
-                      dispatch(actionsItems.itemsUpdate({ index, item }));
+                      dispatch(
+                        actionsItems.itemsUpdate({
+                          item_pk: item.item_pk,
+                          item,
+                        })
+                      );
                     }}
                   />
                 </td>
                 <td className="td-delete">
                   <button
                     className="button-delete"
-                    onClick={() => dispatch(actionsItems.itemsDelete(index))}
+                    onClick={() =>
+                      dispatch(actionsItems.itemsDelete(item.item_pk))
+                    }
                   >
                     <span className="material-icons">delete</span>
                   </button>
