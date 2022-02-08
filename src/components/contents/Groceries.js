@@ -3,36 +3,36 @@ import React from 'react';
 const Groceires = () => {
   return (
     <article>
-      <form class="form-inputs">
+      <form className="form-inputs">
         <input type="text" name="q" placeholder="Search" />
-        <button class="button-search">
-          <span class="material-icons">search</span>
+        <button className="button-search">
+          <span className="material-icons">search</span>
         </button>
       </form>
-      <div class="div-table">
+      <div className="div-table">
         <table>
           <thead>
             <tr>
               <th>No</th>
               <th>
-                <span class="title-names">
+                <span className="title-names">
                   Name
-                  <span class="material-icons active">arrow_drop_up</span>
-                  <span class="material-icons">arrow_drop_down</span>
+                  <span className="material-icons active">arrow_drop_up</span>
+                  <span className="material-icons">arrow_drop_down</span>
                 </span>
               </th>
               <th>
-                <span class="title-names">
+                <span className="title-names">
                   Enter
-                  <span class="material-icons">arrow_drop_up</span>
-                  <span class="material-icons">arrow_drop_down</span>
+                  <span className="material-icons">arrow_drop_up</span>
+                  <span className="material-icons">arrow_drop_down</span>
                 </span>
               </th>
               <th>
-                <span class="title-names">
+                <span className="title-names">
                   Expire
-                  <span class="material-icons">arrow_drop_up</span>
-                  <span class="material-icons">arrow_drop_down</span>
+                  <span className="material-icons">arrow_drop_up</span>
+                  <span className="material-icons">arrow_drop_down</span>
                 </span>
               </th>
               <th>Edit</th>
@@ -45,14 +45,17 @@ const Groceires = () => {
               <td>사과</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button
+                  className="button-update"
+                  // onClick="modalToggle();"
+                >
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -61,14 +64,14 @@ const Groceires = () => {
               <td>바나나</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -77,14 +80,14 @@ const Groceires = () => {
               <td>딸기</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -93,14 +96,14 @@ const Groceires = () => {
               <td>키위</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -109,14 +112,14 @@ const Groceires = () => {
               <td>사과</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -125,14 +128,14 @@ const Groceires = () => {
               <td>바나나</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -141,14 +144,14 @@ const Groceires = () => {
               <td>딸기</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -157,14 +160,14 @@ const Groceires = () => {
               <td>키위</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -173,14 +176,14 @@ const Groceires = () => {
               <td>사과</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -189,14 +192,14 @@ const Groceires = () => {
               <td>바나나</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -205,14 +208,14 @@ const Groceires = () => {
               <td>딸기</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -221,14 +224,14 @@ const Groceires = () => {
               <td>키위</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -237,14 +240,14 @@ const Groceires = () => {
               <td>사과</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -253,14 +256,14 @@ const Groceires = () => {
               <td>바나나</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -269,14 +272,14 @@ const Groceires = () => {
               <td>딸기</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -285,14 +288,14 @@ const Groceires = () => {
               <td>키위</td>
               <td>2021-01-01</td>
               <td>2021-02-02</td>
-              <td class="td-update">
-                <button class="button-update" onclick="modalToggle();">
-                  <span class="material-icons">edit_note</span>
+              <td className="td-update">
+                <button className="button-update">
+                  <span className="material-icons">edit_note</span>
                 </button>
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>

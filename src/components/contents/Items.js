@@ -6,6 +6,7 @@ import { stateItems, actionsItems } from 'store/items/itemsSlice';
 const Items = () => {
   const dispatch = useDispatch();
   const item = { ...useSelector(stateItems).item };
+  console.log(item);
 
   // const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
   // const items = Object.assign([], useSelector(stateItems).items);
@@ -19,7 +20,13 @@ const Items = () => {
   // }, [dispatch]);
   return (
     <article>
-      <form class="form-inputs">
+      <form
+        className="form-inputs"
+        onSubmit={(event) => {
+          event.preventDefault();
+          dispatch(actionsItems.itemsCreate(item));
+        }}
+      >
         <input
           type="text"
           name="name"
@@ -30,34 +37,34 @@ const Items = () => {
             dispatch(actionsItems.itemSet(item));
           }}
         />
-        <button class="button-create">
-          <span class="material-icons">edit</span>
+        <button className="button-create">
+          <span className="material-icons">edit</span>
         </button>
       </form>
-      <div class="div-table">
+      <div className="div-table">
         <table>
           <thead>
             <tr>
               <th>Move</th>
               <th>
-                <span class="title-names">
+                <span className="title-names">
                   Name
-                  <span class="material-icons active">arrow_drop_up</span>
-                  <span class="material-icons">arrow_drop_down</span>
+                  <span className="material-icons active">arrow_drop_up</span>
+                  <span className="material-icons">arrow_drop_down</span>
                 </span>
               </th>
               <th>
-                <span class="title-names">
+                <span className="title-names">
                   Enter
-                  <span class="material-icons">arrow_drop_up</span>
-                  <span class="material-icons">arrow_drop_down</span>
+                  <span className="material-icons">arrow_drop_up</span>
+                  <span className="material-icons">arrow_drop_down</span>
                 </span>
               </th>
               <th>
-                <span class="title-names">
+                <span className="title-names">
                   Expire
-                  <span class="material-icons">arrow_drop_up</span>
-                  <span class="material-icons">arrow_drop_down</span>
+                  <span className="material-icons">arrow_drop_up</span>
+                  <span className="material-icons">arrow_drop_down</span>
                 </span>
               </th>
               <th>Del</th>
@@ -66,61 +73,61 @@ const Items = () => {
           <tbody>
             <tr>
               <td>
-                <input type="checkbox" onchange="" />
+                <input type="checkbox" />
               </td>
               <td>사과</td>
               <td>2021-01-01</td>
-              <td class="td-expire">
-                <input type="date" value="2021-02-02" onchange="" />
+              <td className="td-expire">
+                <input type="date" value="2021-02-02" />
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
             <tr>
               <td>
-                <input type="checkbox" onchange="" />
+                <input type="checkbox" />
               </td>
               <td>바나나</td>
               <td>2021-01-01</td>
-              <td class="td-expire">
-                <input type="date" value="2021-02-02" onchange="" />
+              <td className="td-expire">
+                <input type="date" value="2021-02-02" />
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
             <tr>
               <td>
-                <input type="checkbox" onchange="" />
+                <input type="checkbox" />
               </td>
               <td>딸기</td>
               <td>2021-01-01</td>
-              <td class="td-expire">
-                <input type="date" value="2021-02-02" onchange="" />
+              <td className="td-expire">
+                <input type="date" value="2021-02-02" />
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
             <tr>
               <td>
-                <input type="checkbox" onchange="" />
+                <input type="checkbox" />
               </td>
               <td>키위</td>
               <td>2021-01-01</td>
-              <td class="td-expire">
-                <input type="date" value="2021-02-02" onchange="" />
+              <td className="td-expire">
+                <input type="date" value="2021-02-02" />
               </td>
-              <td class="td-delete">
-                <button class="button-delete" onclick="">
-                  <span class="material-icons">delete</span>
+              <td className="td-delete">
+                <button className="button-delete" onClick={null}>
+                  <span className="material-icons">delete</span>
                 </button>
               </td>
             </tr>
@@ -129,16 +136,16 @@ const Items = () => {
             {items.map((item, index) => (
               <tr key={index}>
                 <td>
-                  <input type="checkbox" onchange="" />
+                  <input type="checkbox" />
                 </td>
                 <td>{item.name}</td>
                 <td>{item.enter}</td>
-                <td class="td-expire">
-                  <input type="date" value="2022-02-21" onchange="" />
+                <td className="td-expire">
+                  <input type="date" value="2022-02-21" />
                 </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick="">
-                    <span class="material-icons">delete</span>
+                <td className="td-delete">
+                  <button className="button-delete">
+                    <span className="material-icons">delete</span>
                   </button>
                 </td>
               </tr>
@@ -167,7 +174,7 @@ const Items = () => {
                 }}
                 />
             </td> */}
-          {/* <td class="td-expire">
+          {/* <td className="td-expire">
                 <input
                 type="date"
                 value={item.expire}
@@ -177,14 +184,14 @@ const Items = () => {
                 }}
                 />
             </td> */}
-          {/* <td class="td-delete">
+          {/* <td className="td-delete">
                 <button
-                class="button-delete"
+                className="button-delete"
                 onClick={() =>
                     dispatch(actionsItems.itemsDelete(index))
                 }
                 >
-                <span class="material-icons">delete</span>
+                <span className="material-icons">delete</span>
                 </button>
             </td> */}
         </table>
