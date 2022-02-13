@@ -5,21 +5,22 @@ import actionsItems from 'store/items/itemsActions.js';
 
 const Items = () => {
   const dispatch = useDispatch();
+
+  // useSelector = stateItems 리듀서의 현재 상태들(item, items)을 가져온다.
   const item = { ...useSelector(stateItems).item };
   console.log(item);
 
   const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
   console.log(items);
-  // const items = Object.assign([], useSelector(stateItems).items);
+
+  // useEffect = 렌더링이 된 후에 함수 끝의 []에 따라, 첫 실행 or 상태가 바뀔 때 마다 실행
   useEffect(() => {
-    dispatch(
-      actionsItems.itemSet({
-        name: '',
-        enter: '',
-        expire: '',
-      })
-    );
+    dispatch(actionsItems.itemSet({ name: '', enter: '', expire: '' }));
+    // itemSet은 다른 메뉴로 이동했다 현재 페이지로 다시 돌아왔을 때 상태값을 초기화 해주기 위해 실행.
+
     dispatch(actionsItems.itemsRead());
+    // dispatch = actionsItems파일의 itemsRead액션을 실행해준다.
+    // itemsRead액션은 db에서 items를 가져오기 때문에 렌더링 후 items 리스트가 보인다.
   }, [dispatch]);
   return (
     <article>
@@ -38,9 +39,10 @@ const Items = () => {
           onChange={(event) => {
             item.name = event.target.value;
             dispatch(actionsItems.itemSet(item));
+            // onChange되는 value들을 itemSet리듀서로 보낸다.
           }}
         />
-        <button className="button-create">
+        <button type="submit" className="button-create">
           <span className="material-icons">edit</span>
         </button>
       </form>
@@ -87,7 +89,6 @@ const Items = () => {
                     value={item.expire}
                     onChange={(event) => {
                       item.expire = event.target.value;
-                      // dispatch(actionsItems.itemsSet(items));
                       dispatch(
                         actionsItems.itemsUpdate({
                           item_pk: item.item_pk,
