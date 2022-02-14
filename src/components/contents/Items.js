@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { stateItems } from 'store/items/itemsSlice';
 import actionsItems from 'store/items/itemsActions.js';
 
 const Items = () => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const orderByName = searchParams.get('orderByName') || '';
+  const orderByType = searchParams.get('orderByType') || '';
   // useSelector = stateItems 리듀서의 현재 상태들(item, items)을 가져온다.
   const item = { ...useSelector(stateItems).item };
   console.log(item);
@@ -13,15 +18,20 @@ const Items = () => {
   const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
   console.log(items);
 
+  const orderBy = (orderByName, orderByType) => {
+    console.log(location);
+    navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
+  };
   // useEffect = 렌더링이 된 후에 함수 끝의 []에 따라, 첫 실행 or 상태가 바뀔 때 마다 실행
   useEffect(() => {
+    console.log(orderByName, orderByType);
     dispatch(actionsItems.itemSet({ name: '', enter: '', expire: '' }));
     // itemSet은 다른 메뉴로 이동했다 현재 페이지로 다시 돌아왔을 때 상태값을 초기화 해주기 위해 실행.
 
-    dispatch(actionsItems.itemsRead());
+    dispatch(actionsItems.itemsRead({ orderByName, orderByType }));
     // dispatch = actionsItems파일의 itemsRead액션을 실행해준다.
     // itemsRead액션은 db에서 items를 가져오기 때문에 렌더링 후 items 리스트가 보인다.
-  }, [dispatch]);
+  }, [dispatch, orderByName, orderByType]);
   return (
     <article>
       <form
@@ -54,22 +64,88 @@ const Items = () => {
               <th>
                 <span className="title-names">
                   Name
-                  <span className="material-icons active">arrow_drop_up</span>
-                  <span className="material-icons">arrow_drop_down</span>
+                  <span
+                    className={`material-icons${
+                      orderByName === 'name' && orderByType === 'asc'
+                        ? ' active'
+                        : ''
+                    }`}
+                    onClick={() => {
+                      orderBy('name', 'asc');
+                    }}
+                  >
+                    arrow_drop_up
+                  </span>
+                  <span
+                    className={`material-icons${
+                      orderByName === 'name' && orderByType === 'desc'
+                        ? ' active'
+                        : ''
+                    }`}
+                    onClick={() => {
+                      orderBy('name', 'desc');
+                    }}
+                  >
+                    arrow_drop_down
+                  </span>
                 </span>
               </th>
               <th>
                 <span className="title-names">
                   Enter
-                  <span className="material-icons">arrow_drop_up</span>
-                  <span className="material-icons">arrow_drop_down</span>
+                  <span
+                    className={`material-icons${
+                      orderByName === 'enter' && orderByType === 'asc'
+                        ? ' active'
+                        : ''
+                    }`}
+                    onClick={() => {
+                      orderBy('enter', 'asc');
+                    }}
+                  >
+                    arrow_drop_up
+                  </span>
+                  <span
+                    className={`material-icons${
+                      orderByName === 'enter' && orderByType === 'desc'
+                        ? ' active'
+                        : ''
+                    }`}
+                    onClick={() => {
+                      orderBy('enter', 'desc');
+                    }}
+                  >
+                    arrow_drop_down
+                  </span>
                 </span>
               </th>
               <th>
                 <span className="title-names">
                   Expire
-                  <span className="material-icons">arrow_drop_up</span>
-                  <span className="material-icons">arrow_drop_down</span>
+                  <span
+                    className={`material-icons${
+                      orderByName === 'expire' && orderByType === 'asc'
+                        ? ' active'
+                        : ''
+                    }`}
+                    onClick={() => {
+                      orderBy('expire', 'asc');
+                    }}
+                  >
+                    arrow_drop_up
+                  </span>
+                  <span
+                    className={`material-icons${
+                      orderByName === 'expire' && orderByType === 'desc'
+                        ? ' active'
+                        : ''
+                    }`}
+                    onClick={() => {
+                      orderBy('expire', 'desc');
+                    }}
+                  >
+                    arrow_drop_down
+                  </span>
                 </span>
               </th>
               <th>Del</th>

@@ -49,10 +49,13 @@ export function* takeEveryItems() {
   });
 
   // 다른 함수 안에서 불러지는 함수를 구분하기 위해 특수문자를 사용했다.
-  const itemsRead$ = function* () {
+  const itemsRead$ = function* (action) {
+    console.log({ action });
     try {
       const response = yield call(() =>
-        axios.get('http://localhost:3100/api/v1/items')
+        axios.get(
+          `http://localhost:3100/api/v1/items?orderByName=${action.payload.orderByName}&orderByType=${action.payload.orderByType}`
+        )
       );
       console.log('Done itemsRead', response);
       yield put(actionsItems.itemsRead(response.data.items));
