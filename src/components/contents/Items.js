@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { stateItems } from 'store/items/itemsSlice';
+import { stateItems } from 'store/items/itemsSlice.js';
 import actionsItems from 'store/items/itemsActions.js';
+// import { stateGroceries } from 'store/groceries/groceriesSlice.js';
+import actionsGroceries from 'store/groceries/groceriesActions.js';
 
 const Items = () => {
   const dispatch = useDispatch();
@@ -155,7 +157,19 @@ const Items = () => {
             {items.map((item, index) => (
               <tr key={index}>
                 <td>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    onChange={(event) => {
+                      console.log(event.target.checked);
+                      event.target.checked
+                        ? dispatch(
+                            actionsGroceries.groceriesCreate(item.item_pk)
+                          )
+                        : dispatch(
+                            actionsGroceries.groceriesDelete(item.item_pk)
+                          );
+                    }}
+                  />
                 </td>
                 <td>{item.name}</td>
                 <td>{item.enter}</td>
