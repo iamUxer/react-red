@@ -39,7 +39,7 @@ export function* takeEveryGroceries() {
     try {
       const response = yield call(
         () =>
-          axios.post('http://localhost:3100/api/v1/groceries', action.payload)
+          axios.post(`http://localhost:3100/api/v1/groceries/${action.payload}`)
         // 콤포넌트에서 받은 action의 payload값으로 post Api 통신을 한다.
       );
       console.log('Done groceriesCreate', response);
