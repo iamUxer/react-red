@@ -17,7 +17,6 @@ export const groceriesSlice = createSlice({
       state.grocery = action.payload;
     },
     groceriesCreate: (state, action) => {
-      console.log('groceriesCreate Reducers:::', action);
       state.groceries.push({
         name: action.payload.name,
         enter: moment().format('YYYY-MM-DD'),

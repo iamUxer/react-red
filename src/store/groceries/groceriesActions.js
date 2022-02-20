@@ -39,11 +39,11 @@ export function* takeEveryGroceries() {
     try {
       const response = yield call(
         () =>
-          axios.post(`http://localhost:3100/api/v1/groceries/${action.payload}`)
+          axios.post('http://localhost:3100/api/v1/groceries', action.payload)
         // 콤포넌트에서 받은 action의 payload값으로 post Api 통신을 한다.
+        // 화살표 함수 : return을 받아야하기 때문에?
       );
-      console.log('Done groceriesCreate', response);
-      yield groceriesRead$();
+      yield groceriesRead$({ type: 'groceriesRead' });
     } catch (error) {
       axiosError(error);
     }
@@ -51,11 +51,12 @@ export function* takeEveryGroceries() {
 
   // 다른 함수 안에서 불러지는 함수를 구분하기 위해 특수문자를 사용했다.
   const groceriesRead$ = function* (action) {
-    console.log({ action });
+    const orderByName = action.payload?.orderByName || 'name';
+    const orderByType = action.payload?.orderByType || 'asc';
     try {
       const response = yield call(() =>
         axios.get(
-          `http://localhost:3100/api/v1/groceries?orderByName=${action.payload.orderByName}&orderByType=${action.payload.orderByType}`
+          `http://localhost:3100/api/v1/groceries?orderByName=${orderByName}&orderByType=${orderByType}`
         )
       );
       console.log('Done groceriesRead', response);
@@ -85,12 +86,17 @@ export function* takeEveryGroceries() {
   });
 
   yield takeEvery(groceriesDelete, function* (action) {
+    const id = action.payload.id;
     try {
       const response = yield call(() =>
-        axios.delete('http://localhost:3100/api/v1/groceries/' + action.payload)
+        axios.delete(`http://localhost:3100/api/v1/groceries/${id}`)
       );
-      console.log('Done groceriesUpdate', response);
-      yield groceriesRead$();
+      if (response) {
+        console.log('Done groceriesDelete', response);
+        yield groceriesRead$({ type: 'groceriesRead' });
+      } else {
+        throw new Error('delete error!!');
+      }
     } catch (error) {
       axiosError(error);
     }
