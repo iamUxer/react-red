@@ -17,7 +17,6 @@ export const itemsSlice = createSlice({
       state.item = action.payload;
     },
     itemsCreate: (state, action) => {
-      console.log('itemsCreate Reducers:::', action);
       state.items.push({
         name: action.payload.name,
         enter: moment().format('YYYY-MM-DD'),

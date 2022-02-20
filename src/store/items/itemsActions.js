@@ -42,7 +42,7 @@ export function* takeEveryItems() {
         // 콤포넌트에서 받은 action의 payload값으로 post Api 통신을 한다.
       );
       console.log('Done itemsCreate', response);
-      yield itemsRead$();
+      yield itemsRead$({ type: 'itemsRead' });
     } catch (error) {
       axiosError(error);
     }
@@ -50,14 +50,14 @@ export function* takeEveryItems() {
 
   // 다른 함수 안에서 불러지는 함수를 구분하기 위해 특수문자를 사용했다.
   const itemsRead$ = function* (action) {
-    console.log({ action });
+    const orderByName = action.payload?.orderByName || 'name';
+    const orderByType = action.payload?.orderByType || 'asc';
     try {
       const response = yield call(() =>
         axios.get(
-          `http://localhost:3100/api/v1/items?orderByName=${action.payload.orderByName}&orderByType=${action.payload.orderByType}`
+          `http://localhost:3100/api/v1/items?orderByName=${orderByName}&orderByType=${orderByType}`
         )
       );
-      console.log('Done itemsRead', response);
       yield put(actionsItems.itemsRead(response.data.items));
       // itemsRead 리듀서에 db에서 받아온 items들을 보낸다.
     } catch (error) {
@@ -76,7 +76,11 @@ export function* takeEveryItems() {
         )
       );
       console.log('Done itemsUpdate', response);
-      yield itemsRead$();
+      if (response.status === 200) {
+        yield itemsRead$({ type: 'itemsRead' });
+      } else {
+        throw new Error('error update');
+      }
     } catch (error) {
       axiosError(error);
     }
@@ -87,8 +91,8 @@ export function* takeEveryItems() {
       const response = yield call(() =>
         axios.delete('http://localhost:3100/api/v1/items/' + action.payload)
       );
-      console.log('Done itemsUpdate', response);
-      yield itemsRead$();
+      console.log('Done itemsDelete', response);
+      yield itemsRead$({ type: 'itemsRead' });
     } catch (error) {
       axiosError(error);
     }

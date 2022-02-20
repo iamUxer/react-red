@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { stateItems } from 'store/items/itemsSlice.js';
 import actionsItems from 'store/items/itemsActions.js';
-// import { stateGroceries } from 'store/groceries/groceriesSlice.js';
+import { stateGroceries } from 'store/groceries/groceriesSlice.js';
 import actionsGroceries from 'store/groceries/groceriesActions.js';
 
 const Items = () => {
@@ -11,29 +11,45 @@ const Items = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const orderByName = searchParams.get('orderByName') || '';
-  const orderByType = searchParams.get('orderByType') || '';
+  const orderByName = searchParams.get('orderByName') || 'name';
+  const orderByType = searchParams.get('orderByType') || 'asc';
   // useSelector = stateItems 리듀서의 현재 상태들(item, items)을 가져온다.
   const item = { ...useSelector(stateItems).item };
-  console.log(item);
-
   const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
-  console.log(items);
-
+  const groceries = JSON.parse(
+    JSON.stringify(useSelector(stateGroceries).groceries)
+  );
   const orderBy = (orderByName, orderByType) => {
-    console.log(location);
     navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
   };
+
   // useEffect = 렌더링이 된 후에 함수 끝의 []에 따라, 첫 실행 or 상태가 바뀔 때 마다 실행
   useEffect(() => {
-    console.log(orderByName, orderByType);
     dispatch(actionsItems.itemSet({ name: '', enter: '', expire: '' }));
     // itemSet은 다른 메뉴로 이동했다 현재 페이지로 다시 돌아왔을 때 상태값을 초기화 해주기 위해 실행.
 
     dispatch(actionsItems.itemsRead({ orderByName, orderByType }));
+    dispatch(actionsGroceries.groceriesRead());
     // dispatch = actionsItems파일의 itemsRead액션을 실행해준다.
     // itemsRead액션은 db에서 items를 가져오기 때문에 렌더링 후 items 리스트가 보인다.
   }, [dispatch, orderByName, orderByType]);
+
+  const onCheckedHandle = (e, id) => {
+    if (e.target.checked) {
+      dispatch(
+        actionsGroceries.groceriesCreate({
+          id: id,
+        })
+      );
+    } else {
+      dispatch(
+        actionsGroceries.groceriesDelete({
+          id: id,
+        })
+      );
+    }
+  };
+
   return (
     <article>
       <form
@@ -155,24 +171,19 @@ const Items = () => {
           </thead>
           <tbody>
             {items.map((item, index) => (
-              <tr key={index}>
+              <tr key={`item-${item.name}`}>
                 <td>
                   <input
+                    name={`item-${item.name}`}
                     type="checkbox"
-                    onChange={(event) => {
-                      console.log(event.target.checked);
-                      event.target.checked
-                        ? dispatch(
-                            actionsGroceries.groceriesCreate(item.item_pk)
-                          )
-                        : dispatch(
-                            actionsGroceries.groceriesDelete(item.item_pk)
-                          );
-                    }}
+                    onChange={(e) => onCheckedHandle(e, item.item_pk)}
+                    checked={groceries.find((grocery) => {
+                      return grocery.grocery_pk === item.item_pk;
+                    })}
                   />
                 </td>
-                <td>{item.name}</td>
-                <td>{item.enter}</td>
+                <td className="td-name">{item.name}</td>
+                <td className="td-enter">{item.enter}</td>
                 <td className="td-expire">
                   <input
                     type="date"
@@ -191,9 +202,14 @@ const Items = () => {
                 <td className="td-delete">
                   <button
                     className="button-delete"
-                    onClick={() =>
-                      dispatch(actionsItems.itemsDelete(item.item_pk))
-                    }
+                    onClick={() => {
+                      dispatch(actionsItems.itemsDelete(item.item_pk));
+                      dispatch(
+                        actionsGroceries.groceriesDelete({
+                          id: item.item_pk,
+                        })
+                      );
+                    }}
                   >
                     <span className="material-icons">delete</span>
                   </button>
