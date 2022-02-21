@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { stateItems } from 'store/items/itemsSlice.js';
 import actionsItems from 'store/items/itemsActions.js';
-import { stateGroceries } from 'store/groceries/groceriesSlice.js';
 import actionsGroceries from 'store/groceries/groceriesActions.js';
 
 const Items = () => {
@@ -16,9 +15,6 @@ const Items = () => {
   // useSelector = stateItems 리듀서의 현재 상태들(item, items)을 가져온다.
   const item = { ...useSelector(stateItems).item };
   const items = JSON.parse(JSON.stringify(useSelector(stateItems).items));
-  const groceries = JSON.parse(
-    JSON.stringify(useSelector(stateGroceries).groceries)
-  );
   const orderBy = (orderByName, orderByType) => {
     navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
   };
@@ -29,7 +25,6 @@ const Items = () => {
     // itemSet은 다른 메뉴로 이동했다 현재 페이지로 다시 돌아왔을 때 상태값을 초기화 해주기 위해 실행.
 
     dispatch(actionsItems.itemsRead({ orderByName, orderByType }));
-    dispatch(actionsGroceries.groceriesRead());
     // dispatch = actionsItems파일의 itemsRead액션을 실행해준다.
     // itemsRead액션은 db에서 items를 가져오기 때문에 렌더링 후 items 리스트가 보인다.
   }, [dispatch, orderByName, orderByType]);
@@ -177,9 +172,7 @@ const Items = () => {
                     name={`item-${item.name}`}
                     type="checkbox"
                     onChange={(e) => onCheckedHandle(e, item.item_pk)}
-                    checked={groceries.find((grocery) => {
-                      return grocery.grocery_pk === item.item_pk;
-                    })}
+                    defaultChecked={item.grocery_pk !== null}
                   />
                 </td>
                 <td className="td-name">{item.name}</td>
@@ -204,11 +197,6 @@ const Items = () => {
                     className="button-delete"
                     onClick={() => {
                       dispatch(actionsItems.itemsDelete(item.item_pk));
-                      dispatch(
-                        actionsGroceries.groceriesDelete({
-                          id: item.item_pk,
-                        })
-                      );
                     }}
                   >
                     <span className="material-icons">delete</span>
