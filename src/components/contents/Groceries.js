@@ -21,149 +21,214 @@ const Groceires = () => {
     navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
   };
 
+  const modalToggle = function () {
+    document.body.classList.toggle('o-hidden');
+    document
+      .getElementsByClassName('modal-background')[0]
+      .classList.toggle('active');
+  };
+
   useEffect(() => {
     dispatch(actionsGroceries.groceriesRead({ orderByName, orderByType }));
   }, [dispatch, orderByName, orderByType]);
 
   return (
-    <article>
-      <form className="form-inputs">
-        <input type="text" name="q" placeholder="Search" />
-        <button className="button-search">
-          <span className="material-icons">search</span>
-        </button>
-      </form>
-      <div className="div-table">
-        <table>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>
-                <span className="title-names">
-                  Name
-                  <span
-                    className={`material-icons${
-                      orderByName === 'name' && orderByType === 'asc'
-                        ? ' active'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      orderBy('name', 'asc');
-                    }}
-                  >
-                    arrow_drop_up
+    <>
+      <article>
+        <form className="form-inputs">
+          <input type="text" name="q" placeholder="Search" />
+          <button className="button-search">
+            <span className="material-icons">search</span>
+          </button>
+        </form>
+        <div className="div-table">
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>
+                  <span className="title-names">
+                    Name
+                    <span
+                      className={`material-icons${
+                        orderByName === 'name' && orderByType === 'asc'
+                          ? ' active'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        orderBy('name', 'asc');
+                      }}
+                    >
+                      arrow_drop_up
+                    </span>
+                    <span
+                      className={`material-icons${
+                        orderByName === 'name' && orderByType === 'desc'
+                          ? ' active'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        orderBy('name', 'desc');
+                      }}
+                    >
+                      arrow_drop_down
+                    </span>
                   </span>
-                  <span
-                    className={`material-icons${
-                      orderByName === 'name' && orderByType === 'desc'
-                        ? ' active'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      orderBy('name', 'desc');
-                    }}
-                  >
-                    arrow_drop_down
+                </th>
+                <th>
+                  <span className="title-names">
+                    Enter
+                    <span
+                      className={`material-icons${
+                        orderByName === 'enter' && orderByType === 'asc'
+                          ? ' active'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        orderBy('enter', 'asc');
+                      }}
+                    >
+                      arrow_drop_up
+                    </span>
+                    <span
+                      className={`material-icons${
+                        orderByName === 'enter' && orderByType === 'desc'
+                          ? ' active'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        orderBy('enter', 'desc');
+                      }}
+                    >
+                      arrow_drop_down
+                    </span>
                   </span>
-                </span>
-              </th>
-              <th>
-                <span className="title-names">
-                  Enter
-                  <span
-                    className={`material-icons${
-                      orderByName === 'enter' && orderByType === 'asc'
-                        ? ' active'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      orderBy('enter', 'asc');
-                    }}
-                  >
-                    arrow_drop_up
+                </th>
+                <th>
+                  <span className="title-names">
+                    Expire
+                    <span
+                      className={`material-icons${
+                        orderByName === 'expire' && orderByType === 'asc'
+                          ? ' active'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        orderBy('expire', 'asc');
+                      }}
+                    >
+                      arrow_drop_up
+                    </span>
+                    <span
+                      className={`material-icons${
+                        orderByName === 'expire' && orderByType === 'desc'
+                          ? ' active'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        orderBy('expire', 'desc');
+                      }}
+                    >
+                      arrow_drop_down
+                    </span>
                   </span>
-                  <span
-                    className={`material-icons${
-                      orderByName === 'enter' && orderByType === 'desc'
-                        ? ' active'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      orderBy('enter', 'desc');
-                    }}
-                  >
-                    arrow_drop_down
-                  </span>
-                </span>
-              </th>
-              <th>
-                <span className="title-names">
-                  Expire
-                  <span
-                    className={`material-icons${
-                      orderByName === 'expire' && orderByType === 'asc'
-                        ? ' active'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      orderBy('expire', 'asc');
-                    }}
-                  >
-                    arrow_drop_up
-                  </span>
-                  <span
-                    className={`material-icons${
-                      orderByName === 'expire' && orderByType === 'desc'
-                        ? ' active'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      orderBy('expire', 'desc');
-                    }}
-                  >
-                    arrow_drop_down
-                  </span>
-                </span>
-              </th>
-              <th>Edit</th>
-              <th>Del</th>
-            </tr>
-          </thead>
-          <tbody>
-            {groceries.map((grocery, index) => (
-              <tr key={`item-${grocery.name}`}>
-                <td>{index + 1}</td>
-                <td>{grocery.name}</td>
-                <td>{grocery.enter}</td>
-                <td>{grocery.expire}</td>
-                <td className="td-update">
-                  <button
-                    className="button-update"
-                    // onClick="modalToggle();"
-                  >
-                    <span className="material-icons">edit_note</span>
-                  </button>
-                </td>
-                <td className="td-delete">
-                  <button
-                    className="button-delete"
-                    onClick={() =>
-                      dispatch(
-                        actionsGroceries.groceriesDelete({
-                          id: grocery.grocery_pk,
-                        })
-                      )
-                    }
-                  >
-                    <span className="material-icons">delete</span>
-                  </button>
+                </th>
+                <th>Edit</th>
+                <th>Del</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groceries.map((grocery, index) => (
+                <tr key={`item-${grocery.name}`}>
+                  <td>{index + 1}</td>
+                  <td>{grocery.name}</td>
+                  <td>{grocery.enter}</td>
+                  <td>{grocery.expire}</td>
+                  <td className="td-update">
+                    <button
+                      className="button-update"
+                      onClick={() => {
+                        console.log(grocery);
+                        modalToggle();
+                      }}
+                    >
+                      <span className="material-icons">edit_note</span>
+                    </button>
+                  </td>
+                  <td className="td-delete">
+                    <button
+                      className="button-delete"
+                      onClick={() =>
+                        dispatch(
+                          actionsGroceries.groceriesDelete({
+                            id: grocery.grocery_pk,
+                          })
+                        )
+                      }
+                    >
+                      <span className="material-icons">delete</span>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <div className="modal-background" onClick={() => modalToggle()}>
+        <form className="modal" onClick={(event) => event.stopPropagation()}>
+          <h3 className="modal-header">Edit</h3>
+          <table className="modal-table">
+            <tbody>
+              <tr>
+                <th>
+                  <span>Name</span>
+                </th>
+                <td>
+                  <input type="text" name="grocery-name" placeholder="Name" />
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+              <tr>
+                <th>
+                  <span>Enter</span>
+                </th>
+                <td>
+                  <input
+                    type="date"
+                    name="grocery-enter"
+                    placeholder="YYYY-MM-DD"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <span>Expire</span>
+                </th>
+                <td>
+                  <input
+                    type="date"
+                    name="grocery-expire"
+                    placeholder="YYYY-MM-DD"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="modal-footer">
+            <button
+              className="button-close"
+              type="button"
+              onClick={() => modalToggle()}
+            >
+              <span className="material-icons">close</span>
+            </button>
+            <button className="button-update" onClick={() => {}}>
+              <span className="material-icons">edit_note</span>
+            </button>
+          </div>
+        </form>
       </div>
-    </article>
+    </>
   );
 };
 
