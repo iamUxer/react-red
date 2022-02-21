@@ -166,13 +166,18 @@ const Items = () => {
           </thead>
           <tbody>
             {items.map((item, index) => (
-              <tr key={`item-${item.name}`}>
+              <tr key={index}>
                 <td>
                   <input
                     name={`item-${item.name}`}
                     type="checkbox"
-                    onChange={(e) => onCheckedHandle(e, item.item_pk)}
-                    defaultChecked={item.grocery_pk !== null}
+                    onChange={(e) => {
+                      onCheckedHandle(e, item.item_pk);
+                      item.grocery_pk = !item.grocery_pk;
+                      dispatch(actionsItems.itemsSet(items));
+                    }}
+                    checked={item.grocery_pk || false}
+                    // 결과값이 null이면 오류가 난다.
                   />
                 </td>
                 <td className="td-name">{item.name}</td>
