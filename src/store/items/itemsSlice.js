@@ -16,6 +16,9 @@ export const itemsSlice = createSlice({
     itemSet: (state, action) => {
       state.item = action.payload;
     },
+    itemsSet: (state, action) => {
+      state.items = action.payload;
+    },
     itemsCreate: (state, action) => {
       state.items.push({
         name: action.payload.name,
