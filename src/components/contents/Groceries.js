@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { stateItems } from 'store/items/itemsSlice.js';
-import actionsItems from 'store/items/itemsActions.js';
 import { stateGroceries } from 'store/groceries/groceriesSlice.js';
 import actionsGroceries from 'store/groceries/groceriesActions.js';
 
@@ -17,20 +15,45 @@ const Groceires = () => {
     JSON.stringify(useSelector(stateGroceries).groceries)
   );
 
+  const grocery = { ...useSelector(stateGroceries).grocery };
+
+  console.log('Reducer Grocery:::', grocery);
+
   const orderBy = (orderByName, orderByType) => {
     navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
   };
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const modalToggle = () => {
+  const modalToggle = (modalGrocery) => {
     setModalVisible(!modalVisible);
+    if (modalGrocery) {
+      // console.log('modalVisible:::', modalGrocery, grocery);
+      dispatch(actionsGroceries.grocerySet(modalGrocery));
+      setModalChange(modalGrocery);
+    } else {
+      dispatch(
+        actionsGroceries.grocerySet({
+          name: '',
+          enter: '',
+          expire: '',
+        })
+      );
+    }
+  };
+
+  const [modalChange, setModalChange] = useState();
+  const onChangeModal = (key, value) => {
+    setModalChange({
+      ...modalChange,
+      [key]: value,
+    });
   };
 
   useEffect(() => {
     dispatch(actionsGroceries.groceriesRead({ orderByName, orderByType }));
   }, [dispatch, orderByName, orderByType]);
-  console.log('modalVisible:::', modalVisible);
+
   return (
     <>
       <article>
@@ -147,8 +170,7 @@ const Groceires = () => {
                     <button
                       className="button-update"
                       onClick={() => {
-                        console.log(grocery);
-                        modalToggle();
+                        modalToggle(grocery);
                       }}
                     >
                       <span className="material-icons">edit_note</span>
@@ -187,7 +209,13 @@ const Groceires = () => {
                     <span>Name</span>
                   </th>
                   <td>
-                    <input type="text" name="grocery-name" placeholder="Name" />
+                    <input
+                      type="text"
+                      name="grocery-name"
+                      placeholder="Name"
+                      value={modalChange.name}
+                      onChange={(e) => onChangeModal('name', e.target.value)}
+                    />
                   </td>
                 </tr>
                 <tr>
@@ -199,6 +227,8 @@ const Groceires = () => {
                       type="date"
                       name="grocery-enter"
                       placeholder="YYYY-MM-DD"
+                      value={modalChange.enter}
+                      onChange={(e) => onChangeModal('enter', e.target.value)}
                     />
                   </td>
                 </tr>
@@ -211,6 +241,8 @@ const Groceires = () => {
                       type="date"
                       name="grocery-expire"
                       placeholder="YYYY-MM-DD"
+                      value={modalChange.expire}
+                      onChange={(e) => onChangeModal('expire', e.target.value)}
                     />
                   </td>
                 </tr>
@@ -224,7 +256,16 @@ const Groceires = () => {
               >
                 <span className="material-icons">close</span>
               </button>
-              <button className="button-update" onClick={() => {}}>
+              <button
+                className="button-update"
+                onClick={() => {
+                  if (grocery === modalChange) {
+                    modalToggle();
+                  } else {
+                    dispatch(actionsGroceries.groceriesUpdate(modalChange));
+                  }
+                }}
+              >
                 <span className="material-icons">edit_note</span>
               </button>
             </div>
