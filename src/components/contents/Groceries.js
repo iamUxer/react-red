@@ -21,17 +21,16 @@ const Groceires = () => {
     navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
   };
 
-  const modalToggle = function () {
-    document.body.classList.toggle('o-hidden');
-    document
-      .getElementsByClassName('modal-background')[0]
-      .classList.toggle('active');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const modalToggle = () => {
+    setModalVisible(!modalVisible);
   };
 
   useEffect(() => {
     dispatch(actionsGroceries.groceriesRead({ orderByName, orderByType }));
   }, [dispatch, orderByName, orderByType]);
-
+  console.log('modalVisible:::', modalVisible);
   return (
     <>
       <article>
@@ -175,59 +174,63 @@ const Groceires = () => {
           </table>
         </div>
       </article>
-      <div className="modal-background" onClick={() => modalToggle()}>
-        <form className="modal" onClick={(event) => event.stopPropagation()}>
-          <h3 className="modal-header">Edit</h3>
-          <table className="modal-table">
-            <tbody>
-              <tr>
-                <th>
-                  <span>Name</span>
-                </th>
-                <td>
-                  <input type="text" name="grocery-name" placeholder="Name" />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <span>Enter</span>
-                </th>
-                <td>
-                  <input
-                    type="date"
-                    name="grocery-enter"
-                    placeholder="YYYY-MM-DD"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <span>Expire</span>
-                </th>
-                <td>
-                  <input
-                    type="date"
-                    name="grocery-expire"
-                    placeholder="YYYY-MM-DD"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="modal-footer">
-            <button
-              className="button-close"
-              type="button"
-              onClick={() => modalToggle()}
-            >
-              <span className="material-icons">close</span>
-            </button>
-            <button className="button-update" onClick={() => {}}>
-              <span className="material-icons">edit_note</span>
-            </button>
-          </div>
-        </form>
-      </div>
+
+      {modalVisible && (
+        <div className="modal-background" onClick={() => modalToggle()}>
+          <form className="modal" onClick={(event) => event.stopPropagation()}>
+            {/* event.stopPropagation() => form안의 핸들러 이벤트가 상위 엘리먼트까지 영향을 주는 것을 막아준다. */}
+            <h3 className="modal-header">Edit</h3>
+            <table className="modal-table">
+              <tbody>
+                <tr>
+                  <th>
+                    <span>Name</span>
+                  </th>
+                  <td>
+                    <input type="text" name="grocery-name" placeholder="Name" />
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <span>Enter</span>
+                  </th>
+                  <td>
+                    <input
+                      type="date"
+                      name="grocery-enter"
+                      placeholder="YYYY-MM-DD"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <span>Expire</span>
+                  </th>
+                  <td>
+                    <input
+                      type="date"
+                      name="grocery-expire"
+                      placeholder="YYYY-MM-DD"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="modal-footer">
+              <button
+                className="button-close"
+                type="button"
+                onClick={() => modalToggle()}
+              >
+                <span className="material-icons">close</span>
+              </button>
+              <button className="button-update" onClick={() => {}}>
+                <span className="material-icons">edit_note</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </>
   );
 };
