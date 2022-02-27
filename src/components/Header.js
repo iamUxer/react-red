@@ -1,7 +1,14 @@
 import React from 'react';
+
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { stateGroceries } from 'store/groceries/groceriesSlice.js';
+
 const Header = () => {
+  const groceries = JSON.parse(
+    JSON.stringify(useSelector(stateGroceries).groceries)
+  );
   return (
     <header>
       <div className="logo">RED</div>
@@ -32,7 +39,7 @@ const Header = () => {
           <span className="material-icons">kitchen</span>
         </NavLink>
         <div>
-          <span id="menu-groceries-counter">1</span>
+          <span id="menu-groceries-counter">{groceries.length}</span>
         </div>
       </div>
       <div className="empty"></div>

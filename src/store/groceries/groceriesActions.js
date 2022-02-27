@@ -70,12 +70,12 @@ export function* takeEveryGroceries() {
   yield takeEvery(groceriesRead, groceriesRead$);
 
   yield takeEvery(groceriesUpdate, function* (action) {
+    console.log('groceriesUpdate:::', action);
     try {
       const response = yield call(() =>
         axios.patch(
-          'http://localhost:3100/api/v1/groceries/' +
-            action.payload.grocery.grocery_pk,
-          action.payload.grocery
+          'http://localhost:3100/api/v1/groceries/' + action.payload.grocery_pk,
+          action.payload
         )
       );
       console.log('Done groceriesUpdate', response);
