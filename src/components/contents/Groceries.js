@@ -11,6 +11,7 @@ const Groceires = () => {
   const searchParams = new URLSearchParams(location.search);
   const orderByName = searchParams.get('orderByName') || 'name';
   const orderByType = searchParams.get('orderByType') || 'asc';
+  const [q, setQ] = useState('');
   const groceries = JSON.parse(
     JSON.stringify(useSelector(stateGroceries).groceries)
   );
@@ -57,8 +58,24 @@ const Groceires = () => {
   return (
     <>
       <article>
-        <form className="form-inputs">
-          <input type="text" name="q" placeholder="Search" />
+        <form
+          className="form-inputs"
+          onSubmit={(event) => {
+            event.preventDefault();
+            dispatch(
+              actionsGroceries.groceriesRead({ orderByName, orderByType, q })
+            );
+          }}
+        >
+          <input
+            type="text"
+            name="q"
+            placeholder="Search"
+            value={q}
+            onChange={(event) => {
+              setQ(event.target.value);
+            }}
+          />
           <button className="button-search">
             <span className="material-icons">search</span>
           </button>
