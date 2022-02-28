@@ -37,7 +37,7 @@ export function* takeEveryGroceries() {
   yield takeEvery(groceriesCreate, function* (action) {
     // dispatch로 인해 groceriesCreate액션 함수가 실행되고 콤포넌트에서 보내준 action을 받는다.
     try {
-      const response = yield call(
+      yield call(
         () =>
           axios.post('http://localhost:3100/api/v1/groceries', action.payload)
         // 콤포넌트에서 받은 action의 payload값으로 post Api 통신을 한다.
@@ -53,10 +53,11 @@ export function* takeEveryGroceries() {
   const groceriesRead$ = function* (action) {
     const orderByName = action.payload?.orderByName || 'name';
     const orderByType = action.payload?.orderByType || 'asc';
+    const q = action.payload?.q || '';
     try {
       const response = yield call(() =>
         axios.get(
-          `http://localhost:3100/api/v1/groceries?orderByName=${orderByName}&orderByType=${orderByType}`
+          `http://localhost:3100/api/v1/groceries?orderByName=${orderByName}&orderByType=${orderByType}&q=${q}`
         )
       );
       console.log('Done groceriesRead', response);

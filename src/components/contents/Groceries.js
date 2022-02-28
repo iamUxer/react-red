@@ -11,6 +11,8 @@ const Groceires = () => {
   const searchParams = new URLSearchParams(location.search);
   const orderByName = searchParams.get('orderByName') || 'name';
   const orderByType = searchParams.get('orderByType') || 'asc';
+  const spSearch = searchParams.get('q') || '';
+  const [q, setQ] = useState('');
   const groceries = JSON.parse(
     JSON.stringify(useSelector(stateGroceries).groceries)
   );
@@ -20,7 +22,9 @@ const Groceires = () => {
   console.log('Reducer Grocery:::', grocery);
 
   const orderBy = (orderByName, orderByType) => {
-    navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
+    navigate(
+      `?orderByName=${orderByName}&orderByType=${orderByType}&q=${spSearch}`
+    );
   };
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,14 +55,35 @@ const Groceires = () => {
   };
 
   useEffect(() => {
-    dispatch(actionsGroceries.groceriesRead({ orderByName, orderByType }));
-  }, [dispatch, orderByName, orderByType]);
+    dispatch(
+      actionsGroceries.groceriesRead({ orderByName, orderByType, q: spSearch })
+    );
+    setQ(spSearch);
+  }, [dispatch, orderByName, orderByType, spSearch]);
 
   return (
     <>
       <article>
-        <form className="form-inputs">
-          <input type="text" name="q" placeholder="Search" />
+        <form
+          className="form-inputs"
+          onSubmit={(event) => {
+            event.preventDefault();
+            dispatch(
+              navigate(
+                `?orderByName=${orderByName}&orderByType=${orderByType}&q=${q}`
+              )
+            );
+          }}
+        >
+          <input
+            type="text"
+            name="q"
+            placeholder="Search"
+            value={q}
+            onChange={(event) => {
+              setQ(event.target.value);
+            }}
+          />
           <button className="button-search">
             <span className="material-icons">search</span>
           </button>
