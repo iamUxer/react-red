@@ -11,6 +11,7 @@ const Groceires = () => {
   const searchParams = new URLSearchParams(location.search);
   const orderByName = searchParams.get('orderByName') || 'name';
   const orderByType = searchParams.get('orderByType') || 'asc';
+  const spSearch = searchParams.get('q') || '';
   const [q, setQ] = useState('');
   const groceries = JSON.parse(
     JSON.stringify(useSelector(stateGroceries).groceries)
@@ -21,7 +22,9 @@ const Groceires = () => {
   console.log('Reducer Grocery:::', grocery);
 
   const orderBy = (orderByName, orderByType) => {
-    navigate(`?orderByName=${orderByName}&orderByType=${orderByType}`);
+    navigate(
+      `?orderByName=${orderByName}&orderByType=${orderByType}&q=${spSearch}`
+    );
   };
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -52,8 +55,11 @@ const Groceires = () => {
   };
 
   useEffect(() => {
-    dispatch(actionsGroceries.groceriesRead({ orderByName, orderByType }));
-  }, [dispatch, orderByName, orderByType]);
+    dispatch(
+      actionsGroceries.groceriesRead({ orderByName, orderByType, q: spSearch })
+    );
+    setQ(spSearch);
+  }, [dispatch, orderByName, orderByType, spSearch]);
 
   return (
     <>
@@ -63,7 +69,9 @@ const Groceires = () => {
           onSubmit={(event) => {
             event.preventDefault();
             dispatch(
-              actionsGroceries.groceriesRead({ orderByName, orderByType, q })
+              navigate(
+                `?orderByName=${orderByName}&orderByType=${orderByType}&q=${q}`
+              )
             );
           }}
         >
