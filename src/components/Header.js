@@ -1,14 +1,26 @@
-import React from 'react';
-
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
 import { stateGroceries } from 'store/groceries/groceriesSlice.js';
+import actionsGroceries from 'store/groceries/groceriesActions.js';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const groceries = JSON.parse(
     JSON.stringify(useSelector(stateGroceries).groceries)
   );
+  // dispatch로 불러와야 데이터를 볼 수 있다.
+
+  useEffect(() => {
+    dispatch(actionsGroceries.groceriesRead());
+    // groceries를 불러온다.
+  }, [dispatch]);
+
+  const [toggle, setToggle] = useState(false);
+  const accountToggle = (e) => {
+    setToggle(!toggle);
+  };
+
   return (
     <header>
       <div className="logo">RED</div>
@@ -44,19 +56,17 @@ const Header = () => {
       </div>
       <div className="empty"></div>
       <div>
-        <a
-          href="#!"
-          id="menu-a-account"
-          // onClick="accountToggle() return false"
-        >
+        <a href="#!" id="menu-a-account" onClick={accountToggle}>
           <span className="material-icons-outlined">account_circle</span>
-          <ul className="account-menu">
+        </a>
+        {!!toggle && (
+          <ul className="account-menu active" onClick={(e) => accountToggle(e)}>
             <li>Guest</li>
             <li>Login</li>
             <li>Hello 홍길동!</li>
             <li>Logout</li>
           </ul>
-        </a>
+        )}
       </div>
     </header>
   );
