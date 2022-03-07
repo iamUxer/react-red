@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { stateGroceries } from 'store/groceries/groceriesSlice.js';
 import actionsGroceries from 'store/groceries/groceriesActions.js';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const groceries = JSON.parse(
     JSON.stringify(useSelector(stateGroceries).groceries)
   );
@@ -62,7 +63,13 @@ const Header = () => {
         {!!toggle && (
           <ul className="account-menu active" onClick={(e) => accountToggle(e)}>
             <li>Guest</li>
-            <li>Login</li>
+            <li
+              onClick={() => {
+                navigate(`/members`);
+              }}
+            >
+              Login
+            </li>
             <li>Hello 홍길동!</li>
             <li>Logout</li>
           </ul>
