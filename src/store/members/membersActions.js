@@ -4,6 +4,17 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import { createAction } from '@reduxjs/toolkit';
 import { actionsMembers } from './membersSlice.js';
 
+const axiosDefaultsHeaders = function (token) {
+  if (token) {
+    localStorage.setItem('x-jwt-token', token);
+    axios.defaults.headers.common['x-jwt-token'] = token;
+  } else if (localStorage.getItem('x-jwt-token')) {
+    axios.defaults.headers.common['x-jwt-token'] =
+      localStorage.getItem('x-jwt-token');
+  }
+};
+axiosDefaultsHeaders();
+
 // 콤포넌트에서 불려지고 콤포넌트에 의해 실행되는 액션 함수
 export const memberSet = createAction('memberSet', (payload) => {
   return { payload: payload };
@@ -37,6 +48,7 @@ export function* takeEveryMembers() {
           )
         // 콤포넌트에서 받은 action의 payload값으로 post Api 통신을 한다.
       );
+      axiosDefaultsHeaders(response.data.token);
       console.log('Done membersLogin', response);
     } catch (error) {
       axiosError(error);
