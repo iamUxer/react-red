@@ -8,6 +8,7 @@ import { takeEveryGroceries } from './groceries/groceriesActions.js';
 import membersReducer from './members/membersSlice.js';
 import { takeEveryMembers } from './members/membersActions.js';
 
+// root reducer
 const sagaMiddleware = createSagaMiddleware();
 
 export default configureStore({

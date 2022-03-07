@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { stateGroceries } from 'store/groceries/groceriesSlice.js';
 import actionsGroceries from 'store/groceries/groceriesActions.js';
+import axios from 'axios';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -71,7 +72,15 @@ const Header = () => {
               Login
             </li>
             <li>Hello 홍길동!</li>
-            <li>Logout</li>
+            <li
+              onClick={() => {
+                axios.defaults.headers.common['x-jwt-token'] = null;
+                localStorage.removeItem('x-jwt-token');
+                window.location.href = '/members';
+              }}
+            >
+              Logout
+            </li>
           </ul>
         )}
       </div>
