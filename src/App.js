@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from 'components/contents/Home.js';
 import Items from 'components/contents/Items.js';
 import Groceries from 'components/contents/Groceries.js';
+import Members from 'components/contents/Members.js';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/items" element={<Items />} />
           <Route path="/groceries" element={<Groceries />} />
+          <Route path="/members" element={<Members />} />
           <Route path="*" element={<Navigate replace to="/home" />} />
         </Routes>
       </div>

@@ -5,9 +5,6 @@ import { stateItems } from 'store/items/itemsSlice.js';
 import actionsItems from 'store/items/itemsActions.js';
 import actionsGroceries from 'store/groceries/groceriesActions.js';
 
-// A;
-// dakjflsdj ? <read></read> : <create></create>;
-
 const Items = () => {
   const dispatch = useDispatch();
   const location = useLocation();
