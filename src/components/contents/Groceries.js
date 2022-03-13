@@ -14,9 +14,20 @@ const Groceires = () => {
   const orderByType = searchParams.get('orderByType') || 'asc';
   const spSearch = searchParams.get('q') || '';
   const [q, setQ] = useState('');
+
+  // useEffect에서 실행한 groceriesRead액션 함수의 결과값 = reducer의 groceries배열
+  // useSelector: reducer의 state를 연결
   const groceries = JSON.parse(
     JSON.stringify(useSelector(stateGroceries).groceries)
   );
+
+  useEffect(() => {
+    // dispatch로 액션함수를 실행하면 Slice로 생성한 reducer가 실행되고 값을 리턴한다.
+    dispatch(
+      actionsGroceries.groceriesRead({ orderByName, orderByType, q: spSearch })
+    );
+    setQ(spSearch);
+  }, [dispatch, orderByName, orderByType, spSearch]);
 
   const orderBy = (orderByName, orderByType) => {
     navigate(
@@ -49,13 +60,6 @@ const Groceires = () => {
       [key]: value,
     });
   };
-
-  useEffect(() => {
-    dispatch(
-      actionsGroceries.groceriesRead({ orderByName, orderByType, q: spSearch })
-    );
-    setQ(spSearch);
-  }, [dispatch, orderByName, orderByType, spSearch]);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+//REDUCER
 export const membersSlice = createSlice({
   name: 'members',
   initialState: {
@@ -17,6 +18,6 @@ export const membersSlice = createSlice({
 });
 
 export const stateMembers = (state) => state.members;
-export const actionsMembers = membersSlice.actions;
+export const reducersMembers = membersSlice.actions;
 
 export default membersSlice.reducer;
