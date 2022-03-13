@@ -2,8 +2,9 @@ import axios from 'axios';
 import { axiosError } from '../common.js';
 import { put, takeEvery, call } from 'redux-saga/effects';
 import { createAction } from '@reduxjs/toolkit';
-import { actionsGroceries } from './groceriesSlice.js';
+import { actionsGroceries } from './groceriesSlice.js'; // Reducer
 
+// createAction: 액션 생성자
 // 콤포넌트에서 불려지고 콤포넌트에 의해 실행되는 액션 함수
 export const grocerySet = createAction('grocerySet', (payload) => {
   return { payload: payload };

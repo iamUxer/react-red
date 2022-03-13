@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
 
+//REDUCER: switch문이 사라짐
 export const groceriesSlice = createSlice({
   name: 'groceries',
+
+  //초기값
   initialState: {
     groceries: [],
     grocery: {
@@ -11,8 +14,11 @@ export const groceriesSlice = createSlice({
       expire: '',
     },
   },
+
   // 액션에 따라 api통신 후 돌려받은 데이터를 가공하여 스토어에 상태를 반영한다.
+  // reducer map
   reducers: {
+    // Reducer + Action 함수
     grocerySet: (state, action) => {
       state.grocery = action.payload;
     },
