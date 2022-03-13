@@ -13,6 +13,7 @@ const axiosDefaultsHeaders = function (token) {
       localStorage.getItem('x-jwt-token');
   }
 };
+// membersLogin dispatch가 일어나고 membersActions.js 페이지가 로딩되면서 즉시 실행
 axiosDefaultsHeaders();
 
 // 콤포넌트에서 불려지고 콤포넌트에 의해 실행되는 액션 함수

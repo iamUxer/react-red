@@ -5,6 +5,7 @@ import Home from 'components/contents/Home.js';
 import Items from 'components/contents/Items.js';
 import Groceries from 'components/contents/Groceries.js';
 import Members from 'components/contents/Members.js';
+import './index.scss';
 
 function App() {
   return (
