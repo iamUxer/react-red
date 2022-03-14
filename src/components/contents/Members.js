@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { stateMembers } from 'store/members/membersSlice.js';
 import actionsMembers from 'store/members/membersActions.js';
 
 const Members = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const member = { ...useSelector(stateMembers).member };
 
@@ -13,7 +15,12 @@ const Members = () => {
         className="form-inputs"
         onSubmit={(event) => {
           event.preventDefault();
-          dispatch(actionsMembers.membersLogin(member));
+          dispatch(
+            actionsMembers.membersLogin({
+              member,
+              navigate,
+            })
+          );
         }}
       >
         <input

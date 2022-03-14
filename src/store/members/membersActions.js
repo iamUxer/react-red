@@ -35,7 +35,7 @@ export function* takeEveryMembers() {
   yield takeEvery(membersLogin, function* (action) {
     // dispatch로 인해 membersLogin액션 함수가 실행되고 콤포넌트에서 보내준 action(payload)을 받는다.
     // Validate
-    const member = action.payload;
+    const { member, navigate } = action.payload;
     if (!member.name) {
       alert('이름을 입력해 주세요.');
       return;
@@ -46,18 +46,16 @@ export function* takeEveryMembers() {
     try {
       const response = yield call(
         // call: 실행 명령
-        () =>
-          axios.post(
-            'http://localhost:3100/api/v1/members/login',
-            action.payload
-          )
+        () => axios.post('http://localhost:3100/api/v1/members/login', member)
         // 콤포넌트에서 받은 action의 payload값으로 post Api 통신을 한다.
       );
       axiosDefaultsHeaders(response.data.token);
       // token데이터가 있을때만 response해준다.
       console.log('Done membersLogin', response);
+      navigate(`/items`);
     } catch (error) {
       axiosError(error);
+      alert(error?.response?.data?.message);
     }
   });
 }
