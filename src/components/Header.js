@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { stateGroceries } from 'store/groceries/groceriesSlice.js';
+import { stateMembers } from 'store/members/membersSlice.js';
 import actionsGroceries from 'store/groceries/groceriesActions.js';
+import actionsMembers, { membersLogin } from 'store/members/membersActions.js';
 import axios from 'axios';
 
 const Header = () => {
@@ -11,10 +13,12 @@ const Header = () => {
   const groceries = JSON.parse(
     JSON.stringify(useSelector(stateGroceries).groceries)
   );
+  const member = useSelector(stateMembers).member;
   // dispatch로 불러와야 데이터를 볼 수 있다.
 
   useEffect(() => {
     dispatch(actionsGroceries.groceriesRead());
+    dispatch(actionsMembers.membersLoginCheck());
     // groceries를 불러온다.
   }, [dispatch]);
 
@@ -63,24 +67,30 @@ const Header = () => {
         </a>
         {!!toggle && (
           <ul className="account-menu active" onClick={(e) => accountToggle(e)}>
-            <li>Guest</li>
-            <li
-              onClick={() => {
-                navigate(`/members`);
-              }}
-            >
-              Login
-            </li>
-            <li>Hello 홍길동!</li>
-            <li
-              onClick={() => {
-                axios.defaults.headers.common['x-jwt-token'] = null;
-                localStorage.removeItem('x-jwt-token');
-                window.location.href = '/members';
-              }}
-            >
-              Logout
-            </li>
+            {/* <li>Guest</li> */}
+            {!member.name && (
+              <li
+                onClick={() => {
+                  navigate(`/members`);
+                }}
+              >
+                Login
+              </li>
+            )}
+            {member.name && (
+              <>
+                <li>Hello {member.name}!</li>
+                <li
+                  onClick={() => {
+                    axios.defaults.headers.common['x-jwt-token'] = null;
+                    localStorage.removeItem('x-jwt-token');
+                    window.location.href = '/members';
+                  }}
+                >
+                  Logout
+                </li>
+              </>
+            )}
           </ul>
         )}
       </div>
