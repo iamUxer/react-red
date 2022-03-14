@@ -23,6 +23,12 @@ export const memberSet = createAction('memberSet', (payload) => {
 export const membersLogin = createAction('membersLogin', (payload) => {
   return { payload: payload };
 });
+export const membersLoginCheck = createAction(
+  'membersLoginCheck',
+  (payload) => {
+    return { payload: payload };
+  }
+);
 
 // 위의 액션 함수가 dispatch되면 아래의 saga가 take하여 reducer를 실행한다.
 export function* takeEveryMembers() {
@@ -58,11 +64,28 @@ export function* takeEveryMembers() {
       alert(error?.response?.data?.message);
     }
   });
+
+  yield takeEvery(membersLoginCheck, function* (action) {
+    // dispatch로 인해 membersLogin액션 함수가 실행되고 콤포넌트에서 보내준 action(payload)을 받는다.
+
+    try {
+      const response = yield call(
+        // call: 실행 명령
+        () => axios.get('http://localhost:3100/api/v1/members/login')
+        // 콤포넌트에서 받은 action의 payload값으로 post Api 통신을 한다.
+      );
+      yield put(reducersMembers.memberSet({ name: response.data.name }));
+      console.log('Done membersLoginCheck', response);
+    } catch (error) {
+      axiosError(error);
+    }
+  });
 }
 
 const actions = {
   memberSet,
   membersLogin,
+  membersLoginCheck,
 };
 
 export default actions;
