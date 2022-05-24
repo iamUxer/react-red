@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const membersSlice = createSlice({
   name: 'members',
   initialState: {
+    members: [],
     member: {
       name: '',
       age: '',
@@ -14,10 +15,13 @@ export const membersSlice = createSlice({
     memberSet: (state, action) => {
       state.member = action.payload;
     },
+    membersRead: (state, action) => {
+      state.members = action.payload;
+    },
   },
 });
 
 export const stateMembers = (state) => state.members;
-export const reducersMembers = membersSlice.actions;
+export const actionsMembers = membersSlice.actions;
 
 export default membersSlice.reducer;
