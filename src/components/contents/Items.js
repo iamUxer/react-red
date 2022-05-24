@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { itemSet } from '../../store/action/items';
 
 const Items = () => {
+  const dispatch = useDispatch();
+  const item = useSelector((state) => state.item);
+  // console.log(state);
+
   return (
     <article>
       <form class="form-inputs">
-        <input type="text" name="name" placeholder="Create" />
+        <input
+          type="text"
+          name="name"
+          placeholder="Create"
+          value={item.name}
+          onChange={(e) => {
+            dispatch(itemSet(e.target.value));
+          }}
+        />
         <button class="button-create">
           <span class="material-icons">edit</span>
         </button>
